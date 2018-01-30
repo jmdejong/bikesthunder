@@ -6,24 +6,28 @@ class Cloud {
 		this.game = game;
 		this.x = (Math.random()*(game.width-100)+50)|0;
 		this.y = (Math.random()*(game.height-100)+50)|0;
-		this.speed = 2;
+		this.speed = 3;
 		this.cooldown = 0;
 	}
 	
 	
 	update(game){
-		this.x += (Keyboard.get("KeyD") - Keyboard.get("KeyA")) * this.speed;
-		if (this.x < 0){
-			this.x = 0;
-		} else if (this.x > game.width){
-			this.x = game.width;
+		var dx = (Keyboard.get("KeyD") - Keyboard.get("KeyA"));
+		var dy = (Keyboard.get("KeyS") - Keyboard.get("KeyW"));
+		var d = Math.hypot(dx, dy);
+		if (d){
+			dx *= this.speed/d;
+			dy *= this.speed/d;
 		}
-		this.y += (Keyboard.get("KeyS") - Keyboard.get("KeyW")) * this.speed;
-		if (this.y < 0){
-			this.y = 0;
-		} else if (this.y > game.height){
-			this.y = game.height;
+		this.x += dx;
+		if (this.x < 0 || this.x > game.width){
+			this.x -= dx;
 		}
+		this.y += dy;
+		if (this.y < 0 || this.y > game.height){
+			this.y -= dy
+		}
+		
 		if (this.cooldown){
 			this.cooldown--;
 		} else if (Keyboard.get("Space")){

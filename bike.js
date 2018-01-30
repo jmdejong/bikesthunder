@@ -12,7 +12,7 @@ class Bike {
 	
 	
 	update(game){
-		this.dir += -(Keyboard.get("ArrowLeft") - Keyboard.get("ArrowRight"))*0.1;
+		this.dir += -(Keyboard.get("ArrowLeft") - Keyboard.get("ArrowRight"))*0.05;
 		this.x += -Math.sin(this.dir) * this.speed;
 		this.y += Math.cos(this.dir) * this.speed;
 		if (this.x < 0  || this.x > game.width || this.y < 0 || this.y > game.height){
